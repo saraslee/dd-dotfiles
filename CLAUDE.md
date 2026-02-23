@@ -22,6 +22,31 @@ The `install.sh` script is the entry point. It uses `find` to locate all dotfile
 
 The `etc/` directory holds non-dotfile configuration that isn't symlinked automatically — workspace and editor templates.
 
+## tmux Usage
+
+When working on tasks, decide whether to use tmux based on the task characteristics:
+
+### Use tmux when:
+- Task will take >5 minutes to complete
+- Working with long-running processes (builds, tests, migrations, multi-ticket work)
+- Using Claude Code agents (orchestrator, planner, ticket-worker)
+- Want to preserve session across disconnections
+- May need to step away mid-task
+
+### Start tmux session:
+```bash
+# Check if already in tmux
+if [ -z "$TMUX" ]; then
+  # Create or attach to session
+  tmux new -s work || tmux attach -s work
+fi
+```
+
+### Skip tmux when:
+- Quick questions or one-off commands
+- Tasks taking <5 minutes
+- Already in an interactive session you want to preserve
+
 ## Workflow
 
 Whenever files in this repo are added, removed, or modified, update this CLAUDE.md to reflect the changes (add/remove/update entries in Key Files, Architecture, etc.). Keep CLAUDE.md as the single source of truth for what's in the repo.
