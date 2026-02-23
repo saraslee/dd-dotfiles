@@ -1,0 +1,17 @@
+# Bookmarks
+alias c="jump"
+
+# Rapid
+alias tidy="bzl run //domains/api_platform/apps/tidy"
+
+# Kubernetes
+alias k="kubectl"
+alias winter-dwb="kubectl exec -it -n datastores dogweb-backend -- psql postgres://postgres:postgres@localhost:5434/dogdatastaging"
+alias winter-oui="kubectl exec -it -n toolbox toolbox -- psql postgres://postgres:postgres@orgstore-oui.datastores:5435/oui"
+
+# Claude
+alias su-claude="claude --model opus --permission-mode=dontAsk"
+alias yolo="claude --model opus --dangerously-skip-permissions"
+
+# Misc
+alias login="ddtool auth login --datacenter=us1.ddbuild.io"

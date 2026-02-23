@@ -1,0 +1,19 @@
+[fetch]
+	prune = true
+[pull]
+	rebase = false
+[user]
+        # The name you want to appear as the author of your commits
+	name = Sara Lee
+	# The e-mail address that is associated to the author of your commits
+	email = sara.lee@datadoghq.com
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIdrEg68793o87LjUQdEzZo0yDQaGre85l9Vxw4rt+oh
+[commit]
+	gpgsign = true
+[gpg]
+	format = ssh
+
+
+# This is a url rewrite that helps [go and maybe rust] tooling that downloads libraries from our private repos
+[url "git@github.com:DataDog/"]
+        insteadOf = https://github.com/DataDog/

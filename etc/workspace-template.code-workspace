@@ -1,0 +1,54 @@
+{
+	"folders": [
+		{
+			"uri": "vscode-remote://ssh-remote+{{.workspace}}/home/bits/go/src/github.com/DataDog/dd-source/"
+		}
+	],
+	"remoteAuthority": "ssh-remote+{{.workspace}}",
+	"settings": {
+		"files.exclude": {
+			// "**/domains/[!a,l]*": true, // Ignore anything that doesn't begin with 'a' or 'l'
+			// "**/domains/a[!a]*": true, 	// Ignore anything that begins with 'a', but doesn't follow with 'a', e.g. 'aa'
+			// "**/domains/aaa_*": true, 	// Ignore aaa_authn explicitly
+			// "**/domains/l[!a]*": true, 	// Ignore anything that isn't "la" to target language_tools
+			"**/*.pyc": true
+		},
+		"python.defaultInterpreterPath": "/home/bits/go/src/github.com/DataDog/dd-source/.venv/bin/python3.10",
+		"cursorpyright.analysis.typeCheckingMode": "basic",
+		"cursorpyright.analysis.exclude": [
+			"**/__pycache__",
+			".pytest_cache",
+			"../dd-go/**",
+			"../consul-config/**",
+			"../web-ui/**",
+			"../winter/**",
+			"../k8s-resources/**",
+			"dogweb/migrations/**",
+			"dev/**",
+			"docker/**",
+			"integration/**",
+			"integration_external/**",
+			"integration2/**",
+			"**/bazel-bin/**",
+			"**/bazel-out/**",
+			"**/bazel-dd-source/**",
+		],
+		"cursorpyright.analysis.ignore": [
+			"**/*_pb2.py", 
+			"**/*.pyi",
+		],
+		"cursorpyright.analysis.diagnosticSeverityOverrides": {
+			"reportMatchNotExhaustive": "error",
+		},
+		"[python]": {
+			"editor.defaultFormatter": "charliermarsh.ruff",
+			"editor.formatOnSave": true,
+			"editor.codeActionsOnSave": {
+				"source.organizeImports": "explicit"
+			}
+		},
+		"terminal.integrated.env.linux": {
+			"SSH_AUTH_SOCK": "/home/bits/.ssh/ssh_auth_sock"
+		}
+	},
+}
