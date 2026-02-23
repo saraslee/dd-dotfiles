@@ -1,6 +1,6 @@
 shell: zsh
 region: us-east-1
-dotfiles: https://github.com/sara-lee/dd-dotfiles
+dotfiles: https://github.com/saraslee/dd-dotfiles
 vscode-extensions:
 - "anysphere.cursorpyright"
 - "charliermarsh.ruff"
