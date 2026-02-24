@@ -13,6 +13,7 @@ This is a personal dotfiles repository that gets applied when provisioning new D
 - `.zshrc` — Shell config: oh-my-zsh with "robbyrussell" theme, git + zshmarks plugins, direnv integration
 - `.my-aliases` — Shell aliases for kubectl, Bazel tidy, Claude Code, zshmarks bookmarks, and ddtool auth
 - `.gitconfig` — Git config with SSH commit signing, URL rewrite for private DataDog repos (`git@github.com:DataDog/` instead of `https://`)
+- `.claude/settings.json` — Claude Code settings with pre-approved permissions for common tools (git, gh, make, poetry, python, bazel, etc.), file operations in DataDog repos, and MCP server access for Atlassian and Datadog integrations
 - `etc/config.yaml` — Devserver workspace config (shell, region, VS Code extensions)
 - `etc/workspace-template.code-workspace` — VS Code multi-root workspace template targeting dd-source with Ruff/Python formatting
 
