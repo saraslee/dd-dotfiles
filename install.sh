@@ -38,7 +38,15 @@ fi
 # Install Graphite CLI
 echo "Installing Graphite CLI..."
 if ! command -v gt &>/dev/null; then
-  npm install -g @withgraphite/graphite-cli
+  if ! command -v npm &>/dev/null; then
+    echo "Installing Node.js..."
+    curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+  fi
+  mkdir -p "$HOME/.npm-global"
+  npm config set prefix "$HOME/.npm-global"
+  npm install -g @withgraphite/graphite-cli@stable
+  echo "export PATH=\"\$HOME/.npm-global/bin:\$PATH\"" >> "$HOME/.zshrc"
   echo "Graphite installed successfully"
 else
   echo "Graphite already installed"
