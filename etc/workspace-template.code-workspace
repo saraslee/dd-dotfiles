@@ -2,6 +2,18 @@
 	"folders": [
 		{
 			"uri": "vscode-remote://ssh-remote+{{.workspace}}/home/bits/go/src/github.com/DataDog/dd-source/"
+		},
+		{
+			"uri": "vscode-remote://ssh-remote+{{.workspace}}/home/bits/go/src/github.com/DataDog/dogweb/"
+		},
+		{
+			"uri": "vscode-remote://ssh-remote+{{.workspace}}/home/bits/go/src/github.com/DataDog/consul-config/"
+		},
+		{
+			"uri": "vscode-remote://ssh-remote+{{.workspace}}/home/bits/go/src/github.com/DataDog/winter/"
+		},
+		{
+			"uri": "vscode-remote://ssh-remote+{{.workspace}}/home/bits/go/src/github.com/DataDog/k8s-resources/"
 		}
 	],
 	"remoteAuthority": "ssh-remote+{{.workspace}}",

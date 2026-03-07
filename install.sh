@@ -34,3 +34,48 @@ if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zshmarks" ]; then
 else
   echo "zshmarks already installed"
 fi
+
+# Install Graphite CLI
+echo "Installing Graphite CLI..."
+if ! command -v gt &>/dev/null; then
+  npm install -g @withgraphite/graphite-cli
+  echo "Graphite installed successfully"
+else
+  echo "Graphite already installed"
+fi
+
+# Install grpcurl
+echo "Installing grpcurl..."
+if ! command -v grpcurl &>/dev/null; then
+  go install github.com/fullstorydev/grpcurl/cmd/grpcurl@latest
+  echo "grpcurl installed successfully"
+else
+  echo "grpcurl already installed"
+fi
+
+# Set up rapid symlink
+echo "Setting up rapid symlink..."
+mkdir -p "$HOME/.local/bin"
+RAPID_SRC="/home/bits/dd/dd-source/domains/api_platform/rapid/apps/rapid/bin/rapid2-bzl"
+RAPID_LINK="$HOME/.local/bin/rapid"
+if [ -f "$RAPID_SRC" ] && [ ! -L "$RAPID_LINK" ]; then
+  ln -s "$RAPID_SRC" "$RAPID_LINK"
+  echo "rapid symlink created"
+else
+  echo "rapid symlink skipped (source not found or link already exists)"
+fi
+
+# Bootstrap dd-source
+echo "Bootstrapping dd-source..."
+DD_SOURCE="$HOME/dd/dd-source"
+if [ -d "$DD_SOURCE" ]; then
+  git -C "$DD_SOURCE" fetch && git -C "$DD_SOURCE" checkout main && git -C "$DD_SOURCE" pull
+  COMPOSE_SRC="$DD_SOURCE/domains/devex/workspaces/apps/shell-image/etc/container-config/compose.yaml"
+  COMPOSE_DEST="$HOME/go/src/github.com/DataDog/compose.yaml"
+  if [ -f "$COMPOSE_SRC" ]; then
+    cp "$COMPOSE_SRC" "$COMPOSE_DEST"
+    echo "compose.yaml copied"
+  fi
+else
+  echo "dd-source not found, skipping bootstrap"
+fi

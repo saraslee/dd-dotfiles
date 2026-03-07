@@ -10,3 +10,8 @@ source $ZSH/oh-my-zsh.sh
 source ~/.my-aliases
 
 eval "$(direnv hook zsh)"
+
+export GOPATH="$HOME/go"
+export PATH="$GOPATH/bin:$HOME/.local/bin:$PATH"
+
+source /home/bits/.config/dogweb.shellrc 2>/dev/null || true

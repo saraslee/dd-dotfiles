@@ -3,6 +3,7 @@ alias c="jump"
 
 # Rapid
 alias tidy="bzl run //domains/api_platform/apps/tidy"
+alias py3test='venv3/bin/python -m gevent.monkey --module pytest'
 
 # Kubernetes
 alias k="kubectl"
