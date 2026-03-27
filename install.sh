@@ -92,19 +92,30 @@ fi
 echo "Configuring Claude Code MCP servers..."
 CLAUDE_JSON="$HOME/.claude.json"
 if [ -f "$CLAUDE_JSON" ]; then
-  python3 -c "
-import json
-with open('$CLAUDE_JSON', 'r') as f:
+  python3 << 'PYEOF'
+import json, os
+claude_json = os.path.expanduser('~/.claude.json')
+with open(claude_json, 'r') as f:
     d = json.load(f)
+# User-level MCP servers
 d['mcpServers'] = {
     'atlassian': {'type': 'sse', 'url': 'https://mcp.atlassian.com/v1/sse'},
     'datadog-prod': {'type': 'http', 'url': 'https://mcp.datadoghq.com/api/unstable/mcp-server/mcp?toolsets=core,watchdog'},
     'datadog-staging': {'type': 'http', 'url': 'https://mcp.datad0g.com/api/unstable/mcp-server/mcp?toolsets=core,watchdog'},
     'google-workspace': {'type': 'http', 'url': 'https://google-workspace-mcp-server-834963730936.us-central1.run.app/mcp'}
 }
-with open('$CLAUDE_JSON', 'w') as f:
+# Project-level MCP servers for home directory
+home = os.path.expanduser('~')
+d.setdefault('projects', {}).setdefault(home, {}).setdefault('mcpServers', {})
+d['projects'][home]['mcpServers']['datadog-google-workspace-mcp'] = {
+    'type': 'stdio',
+    'command': 'npx',
+    'args': ['-y', 'mcp-remote', 'https://google-workspace-mcp-server-834963730936.us-central1.run.app/mcp'],
+    'env': {}
+}
+with open(claude_json, 'w') as f:
     json.dump(d, f, indent=2)
-"
+PYEOF
   echo "MCP servers configured"
 else
   echo "~/.claude.json not found, skipping MCP server setup"
