@@ -87,3 +87,25 @@ if [ -d "$DD_SOURCE" ]; then
 else
   echo "dd-source not found, skipping bootstrap"
 fi
+
+# Configure Claude Code MCP servers
+echo "Configuring Claude Code MCP servers..."
+CLAUDE_JSON="$HOME/.claude.json"
+if [ -f "$CLAUDE_JSON" ]; then
+  python3 -c "
+import json
+with open('$CLAUDE_JSON', 'r') as f:
+    d = json.load(f)
+d['mcpServers'] = {
+    'atlassian': {'type': 'sse', 'url': 'https://mcp.atlassian.com/v1/sse'},
+    'datadog-prod': {'type': 'http', 'url': 'https://mcp.datadoghq.com/api/unstable/mcp-server/mcp?toolsets=core,watchdog'},
+    'datadog-staging': {'type': 'http', 'url': 'https://mcp.datad0g.com/api/unstable/mcp-server/mcp?toolsets=core,watchdog'},
+    'google-workspace': {'type': 'http', 'url': 'https://google-workspace-mcp-server-834963730936.us-central1.run.app/mcp'}
+}
+with open('$CLAUDE_JSON', 'w') as f:
+    json.dump(d, f, indent=2)
+"
+  echo "MCP servers configured"
+else
+  echo "~/.claude.json not found, skipping MCP server setup"
+fi
